@@ -11,19 +11,19 @@ def main():
     print(f"Screen width:",SCREEN_WIDTH)
     print(f"Screen height:",SCREEN_HEIGHT)
 
-
-if __name__ == "__main__":
-    main()
-    # initialize pygame, define screen
+# initialize pygame, define screen
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
+# infinite loop to keep the window open
     while True:
-        # check if user has closed window
+# checks if the user has clicked the 'X' button
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
-                exit()
+                return
 
-        pygame.Surface.fill(screen, ( 0, 0, 0))
+        screen.fill("black")
         pygame.display.flip()
+
+if __name__ == "__main__":
+    main()
