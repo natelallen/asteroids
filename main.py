@@ -3,7 +3,7 @@
 # throughout this file
 import pygame
 
-# importing everything from constraints.py
+# importing everything from constants.py
 from constants import *
 
 def main():
