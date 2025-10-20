@@ -2,8 +2,8 @@
 # the open-source pygame library
 # throughout this file
 import pygame
-
 from constants import *
+from player import Player
 
 def main():
     print("Starting Asteroids!")
@@ -12,8 +12,9 @@ def main():
 
 # initialize pygame, define screen
     pygame.init()
-    clock = pygame.time.Clock()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    clock = pygame.time.Clock()
+    player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, PLAYER_RADIUS)
     dt = 0
 
 # infinite loop to run the game window
@@ -24,6 +25,7 @@ def main():
                 return
 
         screen.fill("black")
+        player.draw(screen)
         pygame.display.flip()
 
 if __name__ == "__main__":
