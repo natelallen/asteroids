@@ -3,7 +3,6 @@
 # throughout this file
 import pygame
 
-# importing everything from constants.py
 from constants import *
 
 def main():
@@ -13,11 +12,13 @@ def main():
 
 # initialize pygame, define screen
     pygame.init()
+    clock = pygame.time.Clock()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    dt = 0
 
-# infinite loop to keep the window open
+# infinite loop to run the game window
     while True:
-# checks if the user has clicked the 'X' button
+        dt = clock.tick(60) / 1000 # limit framerate to 60 fps
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
