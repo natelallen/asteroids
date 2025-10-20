@@ -10,6 +10,10 @@ def main():
     print(f"Screen width:",SCREEN_WIDTH)
     print(f"Screen height:",SCREEN_HEIGHT)
 
+    Player.updatable = pygame.sprite.Group()    
+    Player.drawables = pygame.sprite.Group()
+    Player.containers = Player.updatable, Player.drawables
+
 # initialize pygame, define screen
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -23,10 +27,16 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
+        
+        for drawable in Player.drawables:
+            drawable.draw(screen)
 
+        Player.updatable.update(dt)
         screen.fill("black")
-        player.draw(screen)
+        for drawable in Player.drawables:
+            drawable.draw(screen)
         pygame.display.flip()
+
 
 if __name__ == "__main__":
     main()
