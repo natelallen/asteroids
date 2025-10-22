@@ -3,10 +3,10 @@
 # throughout this file
 import pygame, sys
 from constants import *
-from player import Player
-from asteroid import Asteroid
-from asteroidfield import AsteroidField 
-from shot import Shot
+from entities import Player
+from entities import Asteroid
+from entities import AsteroidField 
+from entities import Shot
 
 def main():
     print("Starting Asteroids!")
