@@ -1,12 +1,11 @@
-# this allows us to use code from
-# the open-source pygame library
-# throughout this file
+#imports
 import pygame, sys
 from constants import *
 from entities import Player
 from entities import Asteroid
 from entities import AsteroidField 
 from entities import Shot
+from entities import Scoreboard
 
 def main():
     print("Starting Asteroids!")
@@ -26,9 +25,11 @@ def main():
 
 # initialize pygame, define screen
     pygame.init()
+    pygame.font.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
     player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, PLAYER_RADIUS, shots)
+    scoreboard = Scoreboard()
     asteroid_field = AsteroidField()
     dt = 0
 
@@ -51,13 +52,13 @@ def main():
                 if shot.collision(asteroid):
                     shot.kill()
                     asteroid.split()
+                    scoreboard.add()
                     break
             
         screen.fill("black")
-
         for drawable in drawables:
             drawable.draw(screen)
-       
+        scoreboard.draw(screen)
         pygame.display.flip()
 
 

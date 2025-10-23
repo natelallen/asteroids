@@ -6,7 +6,6 @@ from constants import *
 # Most game entities will inherit from this class
 class CircleShape(pygame.sprite.Sprite):
     def __init__(self, x, y, radius):
-        # we will be using this later
         if hasattr(self, "containers"):
             super().__init__(self.containers)
         else:
@@ -88,9 +87,23 @@ class Shot(CircleShape):
     def update(self, dt):
         self.position += self.velocity * dt
 
+class Scoreboard():
+    def __init__(self):
+        self.score = 0
+        self.font = pygame.font.SysFont('monospace', 24) # - find a better font later
+
+    def draw(self, screen):
+        txt = self.font.render("Score: " + str(self.score), True, (255, 255, 255))
+        screen.blit(txt, (10, 10))
+
+    def add(self):
+        self.score += 20
+
+    def val(self):
+        return self.score
 
 
-# Asteroid class
+# asteroid class
 class Asteroid(CircleShape):
     def __init__(self, x, y, radius):
         super().__init__(x, y, radius)
