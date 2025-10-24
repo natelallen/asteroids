@@ -1,4 +1,4 @@
-A bare bones recreation of the classic game Asteroids! This was a guided project through Boot.dev.
+A bare bones recreation of the classic game Asteroids! This was a project through Boot.dev.
 
 I am making additional updates for fun!
 
