@@ -75,7 +75,6 @@ class Player(CircleShape):
         c = self.position - forward * self.radius + right
         return [a, b, c]
 
-
 # Shot (bullet) class
 class Shot(CircleShape):
     def __init__(self, x, y, radius):

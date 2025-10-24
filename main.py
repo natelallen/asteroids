@@ -32,34 +32,49 @@ def main():
     scoreboard = Scoreboard()
     asteroid_field = AsteroidField()
     dt = 0
+    game = False 
 
-# infinite loop to run the game window
     while True:
-        dt = clock.tick(60) / 1000 # limit framerate to 60 fps
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                return
-            
-        updatable.update(dt)
-
-        for asteroid in asteroids:
-            if player.collision(asteroid):
-                print("Game over!")
                 pygame.quit()
                 sys.exit()
-        for asteroid in asteroids:
-            for shot in shots:
-                if shot.collision(asteroid):
-                    shot.kill()
-                    asteroid.split()
-                    scoreboard.add()
-                    break
+            if pygame.key.get_pressed()[pygame.K_q]:
+                pygame.quit()
+                sys.exit()
+            if pygame.key.get_pressed()[pygame.K_n]:
+                game = True
+
+        
+            screen.fill("black")
+            pygame.display.flip()
             
-        screen.fill("black")
-        for drawable in drawables:
-            drawable.draw(screen)
-        scoreboard.draw(screen)
-        pygame.display.flip()
+
+        while game == True:
+            dt = clock.tick(60) / 1000 # limit framerate to 60 fps
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+            updatable.update(dt)
+
+            for asteroid in asteroids:
+                if player.collision(asteroid):
+                    print("Game over!")
+                    game = False
+            for asteroid in asteroids:
+                for shot in shots:
+                    if shot.collision(asteroid):
+                        shot.kill()
+                        asteroid.split()
+                        scoreboard.add()
+                        break
+                
+            screen.fill("black")
+            for drawable in drawables:
+                drawable.draw(screen)
+            scoreboard.draw(screen)
+            pygame.display.flip()
 
 
 if __name__ == "__main__":
