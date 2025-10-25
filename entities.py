@@ -100,6 +100,14 @@ class Scoreboard():
 
     def val(self):
         return self.score
+    
+class Mainmenu():
+    def __init__(self):
+        self.font = pygame.font.SysFont('monospace', 25) # - find a better font later
+
+    def draw(self, screen):
+        txt = self.font.render("Press [N] for New Game, Press [Q] for Quit", True, (255, 255, 255))
+        screen.blit(txt, (10, 10))
 
 
 # asteroid class

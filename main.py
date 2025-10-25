@@ -6,6 +6,7 @@ from entities import Asteroid
 from entities import AsteroidField 
 from entities import Shot
 from entities import Scoreboard
+from entities import Mainmenu
 
 def main():
     print("Starting Asteroids!")
@@ -23,16 +24,37 @@ def main():
     AsteroidField.containers = (updatable,)
     
 
-# initialize pygame, define screen
     pygame.init()
     pygame.font.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
     player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, PLAYER_RADIUS, shots)
     scoreboard = Scoreboard()
+    mainmenu = Mainmenu()
     asteroid_field = AsteroidField()
     dt = 0
     game = False 
+
+
+# This function is setup to reset the game state if the player wants to play again.
+    def reset_game():
+        drawables = pygame.sprite.Group()
+        updatable = pygame.sprite.Group()
+        asteroids = pygame.sprite.Group()
+        shots = pygame.sprite.Group()
+
+
+        Asteroid.containers = (asteroids, updatable, drawables)
+        Player.containers = (updatable, drawables)
+        Shot.containers = (shots, updatable, drawables)
+        AsteroidField.containers = (updatable,)
+        Scoreboard.containers = (drawables,)
+
+        player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, PLAYER_RADIUS, shots)
+        asteroid_field = AsteroidField()
+        scoreboard = Scoreboard()
+        score = 0
+        return drawables, updatable, asteroids, shots, player, asteroid_field, scoreboard, score
 
     while True:
         for event in pygame.event.get():
@@ -44,9 +66,10 @@ def main():
                 sys.exit()
             if pygame.key.get_pressed()[pygame.K_n]:
                 game = True
-
+        
         
             screen.fill("black")
+            mainmenu.draw(screen)
             pygame.display.flip()
             
 
@@ -61,7 +84,11 @@ def main():
             for asteroid in asteroids:
                 if player.collision(asteroid):
                     print("Game over!")
+                    drawables, updatable, asteroids, shots, player, asteroid_field, scoreboard, score = reset_game()
+                    updatable.update(dt)
                     game = False
+                    screen.fill("black")
+                    
             for asteroid in asteroids:
                 for shot in shots:
                     if shot.collision(asteroid):
