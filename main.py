@@ -37,26 +37,6 @@ def main():
     background = pygame.image.load("assets/background.png")
 
 
-# This function is setup to reset the game state if the player wants to play again.
-    def reset_game():
-        drawables = pygame.sprite.Group()
-        updatable = pygame.sprite.Group()
-        asteroids = pygame.sprite.Group()
-        shots = pygame.sprite.Group()
-
-
-        Asteroid.containers = (asteroids, updatable, drawables)
-        Player.containers = (updatable, drawables)
-        Shot.containers = (shots, updatable, drawables)
-        AsteroidField.containers = (updatable,)
-        Scoreboard.containers = (drawables,)
-
-        player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, PLAYER_RADIUS, shots)
-        asteroid_field = AsteroidField()
-        scoreboard = Scoreboard()
-        score = 0
-        return drawables, updatable, asteroids, shots, player, asteroid_field, scoreboard, score
-
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -85,7 +65,7 @@ def main():
             for asteroid in asteroids:
                 if player.collision(asteroid):
                     print("Game over!")
-                    drawables, updatable, asteroids, shots, player, asteroid_field, scoreboard, score = reset_game()
+                    drawables, updatable, asteroids, shots, player, asteroid_field, scoreboard, score = Mainmenu.reset_game()
                     updatable.update(dt)
                     game = False
                     screen.fill("black")

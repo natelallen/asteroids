@@ -108,7 +108,25 @@ class Mainmenu():
     def draw(self, screen):
         txt = self.font.render("Press [N] for New Game, Press [Q] for Quit", True, (255, 255, 255))
         screen.blit(txt, (10, 10))
+    # This function is setup to reset the game state if the player wants to play again.
+    def reset_game():
+        drawables = pygame.sprite.Group()
+        updatable = pygame.sprite.Group()
+        asteroids = pygame.sprite.Group()
+        shots = pygame.sprite.Group()
 
+
+        Asteroid.containers = (asteroids, updatable, drawables)
+        Player.containers = (updatable, drawables)
+        Shot.containers = (shots, updatable, drawables)
+        AsteroidField.containers = (updatable,)
+        Scoreboard.containers = (drawables,)
+
+        player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, PLAYER_RADIUS, shots)
+        asteroid_field = AsteroidField()
+        scoreboard = Scoreboard()
+        score = 0
+        return drawables, updatable, asteroids, shots, player, asteroid_field, scoreboard, score
 
 # asteroid class
 class Asteroid(CircleShape):

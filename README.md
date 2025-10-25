@@ -6,3 +6,4 @@ Updates since assignment completion:
 
 - Added scoreboard
 - Added games states (main menu, and instead of game over closing the application it bounces back to menu)
+- Added game screen background
