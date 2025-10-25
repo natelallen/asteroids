@@ -34,6 +34,7 @@ def main():
     asteroid_field = AsteroidField()
     dt = 0
     game = False 
+    background = pygame.image.load("assets/background.png")
 
 
 # This function is setup to reset the game state if the player wants to play again.
@@ -98,6 +99,7 @@ def main():
                         break
                 
             screen.fill("black")
+            screen.blit(background, (0, 0))
             for drawable in drawables:
                 drawable.draw(screen)
             scoreboard.draw(screen)
